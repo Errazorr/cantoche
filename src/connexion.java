@@ -1,3 +1,6 @@
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -60,7 +63,27 @@ public class connexion {
 			}
 		}
 		
-		
+		String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user="root";
+        String password="";
+        try {
+             Connection cnx = DriverManager.getConnection(url, user, password);
+             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet rs = stm.executeQuery("select * from compte where identifiant ='"+textId.getText()+"' and mdp ='"+textMdp.getText()+"'");
+
+             if(rs.next()){
+                 Accueil fen2 = new Accueil();
+                 shlAzJunior.close();
+                 fen2.open();
+             }
+             else {
+                 lblErreur.setText("Mauvais identifiant ou mot de passe");
+             }
+         } catch (SQLException e) {
+             System.out.println("Une erreur est survenue lors de la connexion à la base de données");
+             e.printStackTrace();
+         
+};
 
 	}
 }
