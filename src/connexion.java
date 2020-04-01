@@ -18,10 +18,6 @@ public class connexion {
 	private static Text textId;
 	private static Text textMdp;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
 	
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
@@ -57,9 +53,27 @@ public class connexion {
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
 				   
-				   Accueil fen2 = new Accueil();
-				   fenetre_co.close();
-				   fen2.open();  
+				   String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			        String user="root";
+			        String password="";
+			        try {
+			             Connection cnx = DriverManager.getConnection(url, user, password);
+			             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			             ResultSet rs = stm.executeQuery("select * from compte where identifiant ='"+textId.getText()+"' and mdp ='"+textMdp.getText()+"'");
+
+			             if(rs.next()){
+			                 Accueil fen2 = new Accueil();
+			                 fenetre_co.close();
+			                 fen2.open();
+			             }
+			             else {
+			                 lblErreur.setText("Identifiant ou mot de passe incorrect");
+			             }
+			         } catch (SQLException e) {
+			             System.out.println("Une erreur est survenue lors de la connexion à la base de données");
+			             e.printStackTrace();
+			         
+			};  
 			   }
 		});
 
@@ -71,27 +85,7 @@ public class connexion {
 			}
 		}
 		
-		String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String user="root";
-        String password="";
-        try {
-             Connection cnx = DriverManager.getConnection(url, user, password);
-             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet rs = stm.executeQuery("select * from compte where identifiant ='"+textId.getText()+"' and mdp ='"+textMdp.getText()+"'");
-
-             if(rs.next()){
-                 Accueil fen2 = new Accueil();
-                 fenetre_co.close();
-                 fen2.open();
-             }
-             else {
-                 lblErreur.setText("Identifiant ou mot de passe incorrect");
-             }
-         } catch (SQLException e) {
-             System.out.println("Une erreur est survenue lors de la connexion à la base de données");
-             e.printStackTrace();
-         
-};
+		
 
 	}
 }
