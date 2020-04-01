@@ -62,7 +62,7 @@ public class connexion {
 			             ResultSet rs = stm.executeQuery("select * from compte where identifiant ='"+textId.getText()+"' and mdp ='"+textMdp.getText()+"'");
 
 			             if(rs.next()){
-			                 Accueil fen2 = new Accueil();
+			                 Accueil_test fen2 = new Accueil_test();
 			                 fenetre_co.close();
 			                 fen2.open();
 			             }
