@@ -1,5 +1,8 @@
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -22,27 +25,32 @@ public class connexion {
 	
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
-		Shell shlAzJunior = new Shell();
-		shlAzJunior.setSize(600, 400);
-		shlAzJunior.setText("Connexion");
+		Shell fenetre_co = new Shell();
+		fenetre_co.setSize(600, 400);
+		fenetre_co.setText("Connexion");
 		
-		Label lblId = new Label(shlAzJunior, SWT.NONE);
+		Label lblId = new Label(fenetre_co, SWT.NONE);
 		lblId.setBounds(122, 95, 96, 25);
 		lblId.setText("Identifiant :");
 		
-		Label lblMdp = new Label(shlAzJunior, SWT.NONE);
+		Label lblMdp = new Label(fenetre_co, SWT.NONE);
 		lblMdp.setBounds(122, 152, 123, 25);
 		lblMdp.setText("Mot de passe :");
 		
-		textId = new Text(shlAzJunior, SWT.BORDER);
+		textId = new Text(fenetre_co, SWT.BORDER);
 		textId.setBounds(292, 92, 131, 31);
 		
-		textMdp = new Text(shlAzJunior, SWT.BORDER);
+		textMdp = new Text(fenetre_co, SWT.BORDER);
 		textMdp.setBounds(292, 149, 131, 31);
 		
-		Button btnCo = new Button(shlAzJunior, SWT.NONE);
+		Button btnCo = new Button(fenetre_co, SWT.NONE);
 		btnCo.setBounds(122, 226, 113, 35);
 		btnCo.setText("Se connecter");
+		
+		Label lblErreur = new Label(fenetre_co, SWT.NONE);
+		lblErreur.setAlignment(SWT.CENTER);
+		lblErreur.setBounds(122, 33, 301, 20);
+		lblErreur.setText("");
 		
 		btnCo.addSelectionListener(new SelectionAdapter() {
 			 
@@ -50,14 +58,14 @@ public class connexion {
 			   public void widgetSelected(SelectionEvent arg0) {
 				   
 				   Accueil fen2 = new Accueil();
-				   shlAzJunior.close();
+				   fenetre_co.close();
 				   fen2.open();  
 			   }
 		});
 
-		shlAzJunior.open();
-		shlAzJunior.layout();
-		while (!shlAzJunior.isDisposed()) {
+		fenetre_co.open();
+		fenetre_co.layout();
+		while (!fenetre_co.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -73,11 +81,11 @@ public class connexion {
 
              if(rs.next()){
                  Accueil fen2 = new Accueil();
-                 shlAzJunior.close();
+                 fenetre_co.close();
                  fen2.open();
              }
              else {
-                 lblErreur.setText("Mauvais identifiant ou mot de passe");
+                 lblErreur.setText("Identifiant ou mot de passe incorrect");
              }
          } catch (SQLException e) {
              System.out.println("Une erreur est survenue lors de la connexion à la base de données");
