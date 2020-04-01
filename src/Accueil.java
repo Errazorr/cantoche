@@ -1,4 +1,6 @@
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -8,7 +10,6 @@ public class Accueil {
 
 	public static void open() {
 		Display display = Display.getDefault();
-		Accueil.open();
 	}
 	
 	public static void main(String[] args) {
@@ -57,7 +58,14 @@ public class Accueil {
 			}
 		}
 		
-		
+		btnAjout.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Ajout_eleve fen3 = new Ajout_eleve();
+				   Ajout_eleve.open();
+			   }
+		});
 
 	}
 }

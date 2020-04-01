@@ -63,7 +63,7 @@ public class connexion {
 
 			             if(rs.next()){
 			                 Accueil fen2 = new Accueil();
-			                 fenetre_co.close();
+			                 //fenetre_co.close();
 			                 fen2.open();
 			             }
 			             else {
