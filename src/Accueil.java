@@ -1,79 +1,73 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.SWT;
 
 public class Accueil {
 
-	protected Shell shlAccueil;
-
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			Accueil window = new Accueil();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Open the window.
-	 */
-	public void open() {
+	public static void open() {
 		Display display = Display.getDefault();
-		createContents();
-		shlAccueil.open();
-		shlAccueil.layout();
-		while (!shlAccueil.isDisposed()) {
+		Accueil.open();
+	}
+	
+	public static void main(String[] args) {
+		Display display = Display.getDefault();
+		Shell Accueil = new Shell();
+		Accueil.setSize(695, 436);
+		Accueil.setText("Accueil");
+		
+		Button btnAjout = new Button(Accueil, SWT.NONE);
+		btnAjout.setText("Ajouter un \u00E9tudiant");
+		btnAjout.setBounds(44, 61, 204, 35);
+		
+		Button btnSuppr = new Button(Accueil, SWT.NONE);
+		btnSuppr.setText("Supprimer un \u00E9tudiant");
+		btnSuppr.setBounds(44, 135, 204, 35);
+		
+		Button btnModif = new Button(Accueil, SWT.NONE);
+		btnModif.setText("Modifier un \u00E9tudiant");
+		btnModif.setBounds(44, 207, 204, 35);
+		
+		Button btnAfficherLestudiants = new Button(Accueil, SWT.NONE);
+		btnAfficherLestudiants.setText("Afficher les \u00E9tudiants");
+		btnAfficherLestudiants.setBounds(44, 277, 204, 35);
+		
+		Button btnAjouterUnProf = new Button(Accueil, SWT.NONE);
+		btnAjouterUnProf.setText("Ajouter un prof");
+		btnAjouterUnProf.setBounds(429, 61, 204, 35);
+		
+		Button btnSupprimerUnProf = new Button(Accueil, SWT.NONE);
+		btnSupprimerUnProf.setText("Supprimer un prof");
+		btnSupprimerUnProf.setBounds(429, 135, 204, 35);
+		
+		Button btnModifierUnProf = new Button(Accueil, SWT.NONE);
+		btnModifierUnProf.setText("Modifier un prof");
+		btnModifierUnProf.setBounds(429, 207, 204, 35);
+		
+		Button btnAfficherLesProfs = new Button(Accueil, SWT.NONE);
+		btnAfficherLesProfs.setText("Afficher les profs");
+		btnAfficherLesProfs.setBounds(429, 277, 204, 35);
+
+		Accueil.open();
+		Accueil.layout();
+		while (!Accueil.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
-	}
-
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shlAccueil = new Shell();
-		shlAccueil.setSize(777, 445);
-		shlAccueil.setText("Accueil");
 		
-		Button btnAjout = new Button(shlAccueil, SWT.NONE);
-		btnAjout.setBounds(53, 61, 204, 35);
-		btnAjout.setText("Ajouter un \u00E9tudiant");
 		
-		Button btnSuppr = new Button(shlAccueil, SWT.NONE);
-		btnSuppr.setBounds(53, 135, 204, 35);
-		btnSuppr.setText("Supprimer un \u00E9tudiant");
-		
-		Button btnModif = new Button(shlAccueil, SWT.NONE);
-		btnModif.setBounds(53, 207, 204, 35);
-		btnModif.setText("Modifier un \u00E9tudiant");
-		
-		Button btnAfficherLestudiants = new Button(shlAccueil, SWT.NONE);
-		btnAfficherLestudiants.setText("Afficher les \u00E9tudiants");
-		btnAfficherLestudiants.setBounds(53, 277, 204, 35);
-		
-		Button btnAjouterUnProf = new Button(shlAccueil, SWT.NONE);
-		btnAjouterUnProf.setText("Ajouter un prof");
-		btnAjouterUnProf.setBounds(438, 61, 204, 35);
-		
-		Button btnSupprimerUnProf = new Button(shlAccueil, SWT.NONE);
-		btnSupprimerUnProf.setText("Supprimer un prof");
-		btnSupprimerUnProf.setBounds(438, 135, 204, 35);
-		
-		Button btnModifierUnProf = new Button(shlAccueil, SWT.NONE);
-		btnModifierUnProf.setText("Modifier un prof");
-		btnModifierUnProf.setBounds(438, 207, 204, 35);
-		
-		Button btnAfficherLesProfs = new Button(shlAccueil, SWT.NONE);
-		btnAfficherLesProfs.setText("Afficher les profs");
-		btnAfficherLesProfs.setBounds(438, 277, 204, 35);
 
 	}
 }
