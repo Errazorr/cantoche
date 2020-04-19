@@ -96,7 +96,7 @@ public class cantine_prof {
 		TableItem tableItem_1 = new TableItem(table, SWT.NONE);
 		
 		TableItem tableItem = new TableItem(table, SWT.NONE);
-		tableItem.setText(new String[] {"Goncalves", "Nathan", "BTS", "Oui", "L,Ma,J,V", "Demi-Pensionnaire", "Non"});
+		tableItem.setText(new String[] {});
 		
 		Button btnTrierParNom = new Button(shlCantineprof, SWT.NONE);
 		btnTrierParNom.setBounds(67, 43, 122, 35);
