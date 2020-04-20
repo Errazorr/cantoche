@@ -95,6 +95,26 @@ public class Accueil {
 				   
 			   }
 		});
+		
+		btnSuppr.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close(); //On ferme la page d'accueil
+				   Suppr_eleve.main(args); //On ouvre la page pour afficher les professeurs
+				   
+			   }
+		});
+		
+		btnSupprimerUnProf.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close(); //On ferme la page d'accueil
+				   Suppr_prof.main(args); //On ouvre la page pour afficher les professeurs
+				   
+			   }
+		});
 
 		//Affichage de la fenêtre
 		Accueil.setVisible(true);
