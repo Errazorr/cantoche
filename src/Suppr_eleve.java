@@ -79,7 +79,7 @@ public class Suppr_eleve {
 
 			             if(rs.next()){ //Si il existe
 			            	 Statement stmt = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			            	 ResultSet result = stmt.executeQuery("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
+			            	 int result = stmt.executeUpdate("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
 			            	 lblErreur.setText("Eleve supprimé"); //On affiche le texte
 			             }
 			             else { //Sinon
