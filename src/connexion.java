@@ -53,7 +53,7 @@ public class connexion {
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
 				   
-				   String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+				   	String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			        String user="root";
 			        String password="";
 			        try {
@@ -62,9 +62,9 @@ public class connexion {
 			             ResultSet rs = stm.executeQuery("select * from compte where identifiant ='"+textId.getText()+"' and mdp ='"+textMdp.getText()+"'");
 
 			             if(rs.next()){
-			                 Accueil fen2 = new Accueil();
-			                 //fenetre_co.close();
-			                 fen2.open();
+			                 fenetre_co.close();
+			                 Accueil.main(args);
+			                 
 			             }
 			             else {
 			                 lblErreur.setText("Identifiant ou mot de passe incorrect");
