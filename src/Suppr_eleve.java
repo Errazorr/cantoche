@@ -47,9 +47,9 @@ public class Suppr_eleve {
 		Prenom.setBounds(247, 149, 131, 31);
 		
 		//Bouton de validation
-		Button btnCo = new Button(Supprimer, SWT.NONE);
-		btnCo.setBounds(122, 226, 113, 35);
-		btnCo.setText("Supprimer");
+		Button btnSupp = new Button(Supprimer, SWT.NONE);
+		btnSupp.setBounds(122, 226, 113, 35);
+		btnSupp.setText("Supprimer");
 		
 		//Label d'erreur
 		Label lblErreur = new Label(Supprimer, SWT.NONE);
@@ -61,6 +61,38 @@ public class Suppr_eleve {
 		Button btnAnnuler = new Button(Supprimer, SWT.NONE);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(310, 226, 113, 35);
+		
+		btnSupp.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   
+				   //Connexion à la bdd
+				   	String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			        String user="root";
+			        String password="";
+			        try {
+			             Connection cnx = DriverManager.getConnection(url, user, password);
+			             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			             //On cherche si le compte existe grâce à l'identifiant et le mot de passe
+			             ResultSet rs = stm.executeQuery("select * from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
+
+			             if(rs.next()){ //Si il existe
+			            	 Statement stmt = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			            	 ResultSet result = stmt.executeQuery("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
+			            	 lblErreur.setText("Eleve supprimé"); //On affiche le texte
+			             }
+			             else { //Sinon
+			                 lblErreur.setText("Eleve introuvable ou inexistant"); //On affiche le texte
+			             }
+			             
+			         } catch (SQLException e) { //S'il y a un problème lors de la connexion à la bdd
+			             System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le texte
+			             e.printStackTrace();
+			         
+			};  
+			   }
+		});
 		
 		//Affichage de la fenêtre
 		Supprimer.open();
