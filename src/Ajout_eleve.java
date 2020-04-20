@@ -23,9 +23,6 @@ public class Ajout_eleve {
 	private static Text textRegime;
 	private static Text textClasse;
 
-	public static void open() {
-		Ajout_eleve.open();
-	}
 	
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
