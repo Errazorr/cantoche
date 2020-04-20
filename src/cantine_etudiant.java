@@ -1,6 +1,13 @@
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -86,18 +93,16 @@ public class cantine_etudiant {
 		tblclmnJour.setWidth(100);
 		tblclmnJour.setText("Jour");
 		
-		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn.setText("R\u00E9gime");
-		tblclmnNewColumn.setWidth(166);
+		TableColumn tblclmnRégime = new TableColumn(table, SWT.NONE);
+		tblclmnRégime.setText("R\u00E9gime");
+		tblclmnRégime.setWidth(135);
 		
-		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn_1.setWidth(126);
-		tblclmnNewColumn_1.setText("R\u00E9gime alimentaire");
-		
-		TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+		TableColumn tblclmnRégimeAlimentaire = new TableColumn(table, SWT.NONE);
+		tblclmnRégimeAlimentaire.setWidth(160);
+		tblclmnRégimeAlimentaire.setText("R\u00E9gime alimentaire");
 		
 		TableItem tableItem = new TableItem(table, SWT.NONE);
-		tableItem.setText(new String[] {});
+		tableItem.setText("");
 		
 		Button btnTrinom = new Button(shlCantinetudiant, SWT.NONE);
 		btnTrinom.setBounds(67, 43, 122, 35);
@@ -110,6 +115,36 @@ public class cantine_etudiant {
 		Label lblTotal = new Label(shlCantinetudiant, SWT.NONE);
 		lblTotal.setBounds(693, 583, 209, 28);
 		lblTotal.setText("Total du mois :");
+		
+		
+		String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user="root";
+        String password="";
+        try {
+             Connection cnx = DriverManager.getConnection(url, user, password);
+             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet rs = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
+             
+            TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+     		tableItem_1.setText(0, "Goncalves");
+     		tableItem_1.setText(1, "Nathan");
+     		tableItem_1.setText(2, "BTS");
+     		tableItem_1.setText(3, "Non");
+     		tableItem_1.setText(4, "");
+     		tableItem_1.setText(5, "");
+     		tableItem_1.setText(6, "");
+             
+
+         } catch (SQLException e) {
+             System.out.println("Une erreur est survenue lors de la connexion à la base de données");
+             e.printStackTrace();
+         
+         }; 
+		
+         
+		
+		
+		
 
 	}
 }
