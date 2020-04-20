@@ -26,7 +26,7 @@ public class Ajout_eleve {
 
 	
 	public static void main(String[] args) {
-		//Affichage de la page d'accueil
+		//Affichage de la page
 		Display display = Display.getDefault();
 		Shell Ajout_eleve = new Shell();
 		Ajout_eleve.setSize(860, 449);
