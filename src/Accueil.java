@@ -8,9 +8,6 @@ import org.eclipse.swt.widgets.Button;
 
 public class Accueil {
 
-	public static void open() {
-		Display display = Display.getDefault();
-	}
 	
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
@@ -30,9 +27,9 @@ public class Accueil {
 		btnModif.setText("Modifier un \u00E9tudiant");
 		btnModif.setBounds(44, 207, 204, 35);
 		
-		Button btnAfficherLestudiants = new Button(Accueil, SWT.NONE);
-		btnAfficherLestudiants.setText("Afficher les \u00E9tudiants");
-		btnAfficherLestudiants.setBounds(44, 277, 204, 35);
+		Button btnAfficherLesetudiants = new Button(Accueil, SWT.NONE);
+		btnAfficherLesetudiants.setText("Afficher les \u00E9tudiants");
+		btnAfficherLesetudiants.setBounds(44, 277, 204, 35);
 		
 		Button btnAjouterUnProf = new Button(Accueil, SWT.NONE);
 		btnAjouterUnProf.setText("Ajouter un prof");
@@ -49,7 +46,49 @@ public class Accueil {
 		Button btnAfficherLesProfs = new Button(Accueil, SWT.NONE);
 		btnAfficherLesProfs.setText("Afficher les profs");
 		btnAfficherLesProfs.setBounds(429, 277, 204, 35);
+		
+		btnAjout.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close();
+				   Ajout_eleve.main(args);
+				   
+			   }
+		});
+		
+		btnAjouterUnProf.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close();
+				   Ajout_prof.main(args);
+				   
+			   }
+		});
+		
+		btnAfficherLesetudiants.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close();
+				   cantine_etudiant.main(args);
+				   
+			   }
+		});
+		
+		btnAfficherLesProfs.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close();
+				   cantine_prof.main(args);
+				   
+			   }
+		});
 
+
+		Accueil.setVisible(true);
 		Accueil.open();
 		Accueil.layout();
 		while (!Accueil.isDisposed()) {
@@ -58,14 +97,7 @@ public class Accueil {
 			}
 		}
 		
-		btnAjout.addSelectionListener(new SelectionAdapter() {
-			 
-			   @Override
-			   public void widgetSelected(SelectionEvent arg0) {
-				   Ajout_eleve fen3 = new Ajout_eleve();
-				   Ajout_eleve.open();
-			   }
-		});
+		
 
 	}
 }
