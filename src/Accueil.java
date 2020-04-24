@@ -101,7 +101,7 @@ public class Accueil {
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
 				   Accueil.close(); //On ferme la page d'accueil
-				   Suppr_eleve.main(args); //On ouvre la page pour afficher les professeurs
+				   Suppr_eleve.main(args); //On ouvre la page pour supprimer les professeurs
 				   
 			   }
 		});
@@ -111,7 +111,27 @@ public class Accueil {
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
 				   Accueil.close(); //On ferme la page d'accueil
-				   Suppr_prof.main(args); //On ouvre la page pour afficher les professeurs
+				   Suppr_prof.main(args); //On ouvre la page pour supprimer les professeurs
+				   
+			   }
+		});
+		
+		btnModif.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close(); //On ferme la page d'accueil
+				   modif_eleve.main(args); //On ouvre la page pour modifier les professeurs
+				   
+			   }
+		});
+		
+		btnModifierUnProf.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Accueil.close(); //On ferme la page d'accueil
+				   modif_prof.main(args); //On ouvre la page pour modifier les professeurs
 				   
 			   }
 		});
