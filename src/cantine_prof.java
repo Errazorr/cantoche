@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -18,6 +20,7 @@ public class cantine_prof {
 
 	protected Shell shlCantineprof;
 	private Table table;
+	private int prix_mensuel;
 
 	/**
 	 * Launch the application.
@@ -56,25 +59,25 @@ public class cantine_prof {
 		shlCantineprof.setText("Cantine professeur"); //Titre de la fenêtre
 		
 		//Bouton pour ajouter un élève
-		Button btnNewButton = new Button(shlCantineprof, SWT.NONE);
-		btnNewButton.setBounds(50, 576, 204, 35);
-		btnNewButton.setText("Ajouter un professeur");
+		Button btnAjout = new Button(shlCantineprof, SWT.NONE);
+		btnAjout.setBounds(50, 576, 204, 35);
+		btnAjout.setText("Ajouter un professeur");
 		
 		//Bouton pour modifier un élève
-		Button btnNewButton_1 = new Button(shlCantineprof, SWT.NONE);
-		btnNewButton_1.setBounds(470, 576, 204, 35);
-		btnNewButton_1.setText("Modifier un professeur");
+		Button btnModif = new Button(shlCantineprof, SWT.NONE);
+		btnModif.setBounds(470, 576, 204, 35);
+		btnModif.setText("Modifier un professeur");
 		
 		//Bouton pour supprimer un élève
-		Button btnNewButton_2 = new Button(shlCantineprof, SWT.NONE);
-		btnNewButton_2.setBounds(260, 576, 204, 35);
-		btnNewButton_2.setText("Supprimer un professeur");
+		Button btnSuppr = new Button(shlCantineprof, SWT.NONE);
+		btnSuppr.setBounds(260, 576, 204, 35);
+		btnSuppr.setText("Supprimer un professeur");
 		
 		//Affichage du tableau
 		table = new Table(shlCantineprof, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		table.setBounds(50, 100, 835, 440);
+		table.setLinesVisible(true);
+		table.setBounds(50, 100, 750, 440);
 		
 		//Colonne nom
 		TableColumn tblclmnNom = new TableColumn(table, SWT.NONE);
@@ -98,31 +101,26 @@ public class cantine_prof {
 		
 		//Colonne régime
 		TableColumn tblclmnNewColumn = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn.setText("R\u00E9gime");
+		tblclmnNewColumn.setText("R\u00E9gime alimentaire");
 		tblclmnNewColumn.setWidth(190);
 		
-		//Colonne régime alimentaire
-		TableColumn tblclmnNewColumn_1 = new TableColumn(table, SWT.NONE);
-		tblclmnNewColumn_1.setWidth(182);
-		tblclmnNewColumn_1.setText("R\u00E9gime alimentaire");
-		
-		//Ligne blanche pour laisser un espace
-		TableItem tableItem_1 = new TableItem(table, SWT.NONE);
-		tableItem_1.setText("");
-		
-		//Zone pour entrer les données dans le tableau
-		TableItem tableItem = new TableItem(table, SWT.NONE);
-		tableItem.setText(new String[] {});
+		TableColumn tblclmnPrixParMois = new TableColumn(table, SWT.NONE);
+		tblclmnPrixParMois.setWidth(100);
+		tblclmnPrixParMois.setText("Prix par mois");
 		
 		//Bouton pour trier par nom
-		Button btnTrierParNom = new Button(shlCantineprof, SWT.NONE);
-		btnTrierParNom.setBounds(67, 43, 122, 35);
-		btnTrierParNom.setText("Trier par nom");
+		Button btnTrinom = new Button(shlCantineprof, SWT.NONE);
+		btnTrinom.setBounds(67, 43, 122, 35);
+		btnTrinom.setText("Trier par nom");
 		
 		//Label pour afficher le prix total du mois à payer
 		Label lblTotalDuMois = new Label(shlCantineprof, SWT.NONE);
 		lblTotalDuMois.setBounds(693, 583, 209, 28);
 		lblTotalDuMois.setText("Total du mois :");
+		
+		Button btnRetour = new Button(shlCantineprof, SWT.NONE);
+		btnRetour.setText("Retour");
+		btnRetour.setBounds(284, 43, 148, 35);
 		
 		//Connexion à la bdd
 			String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -131,17 +129,34 @@ public class cantine_prof {
 		    try {
 		         Connection cnx = DriverManager.getConnection(url, user, password);
 		         Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		         stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
+		         ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'prof'");
+		         
+		         
 		             
-		         //On remplit une ligne du tableau
-		        TableItem table1 = new TableItem(table, SWT.NONE);
-		        table1.setText(0, "Goncalves");
-		     	table1.setText(1, "Nathan");
-		     	table1.setText(2, "BTS");
-		     	table1.setText(3, "Non");
-		     	table1.setText(4, "");
-		     	table1.setText(5, "");
-		     	table1.setText(6, "");
+		         while(result.next()) {
+		        	 
+			         if(result.getString(6) == "non") {
+			        	 prix_mensuel = 0;
+			         }
+			         
+			         else {
+			        	 final String separateur = ",";
+				         String jours = result.getString(7);
+				         
+				         String nbjours[] = jours.split(separateur);
+			        	 prix_mensuel = nbjours.length * 6 * 4;
+			         }
+			         
+		            	//On remplit une ligne du tableau
+		            	TableItem tableItem1 = new TableItem(table, SWT.NONE);
+		            	tableItem1.setText(0, result.getString(2));
+		            	tableItem1.setText(1, result.getString(3));
+		            	tableItem1.setText(2, result.getString(6));
+		            	tableItem1.setText(3, result.getString(7));
+		            	tableItem1.setText(4, result.getString(8));
+		            	tableItem1.setText(5, String.valueOf(prix_mensuel));
+		            	
+		            }
 		             
 
 		     } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
@@ -149,6 +164,71 @@ public class cantine_prof {
 		         e.printStackTrace();
 		         
 		     };
+		
+		     btnAjout.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { 
+					   shlCantineprof.close();
+					   Ajout_prof.main(null);
+				   }
+			}); 
+	         
+	         btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { 
+					   shlCantineprof.close();
+					   modif_prof.main(null);
+				   }
+			}); 
+	         
+	         btnSuppr.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { 
+					   shlCantineprof.close();
+					   Suppr_prof.main(null);
+				   }
+			}); 
+	         
+	         btnRetour.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { 
+					   shlCantineprof.close();
+					   Accueil.main(null);
+				   }
+			}); 
+	         
+	         btnTrinom.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton Trier par nom
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { 
+					   table.removeAll();
+					   try {
+				            Connection cnx = DriverManager.getConnection(url, user, password);
+				            Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				            //On affiche les eleves dans l'ordre aplphabétique
+				            ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'prof' order by nom asc");
+		
+				            while(result.next()) {
+				            	//On remplit les ligne du tableau
+				            	TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+				            	tableItem_1.setText(0, result.getString(2));//Nom
+				            	tableItem_1.setText(1, result.getString(3));//Prénom
+				            	tableItem_1.setText(3, result.getString(6));//Demi-pensionnaire
+				            	tableItem_1.setText(4, result.getString(7));//Jours
+				            	tableItem_1.setText(5, result.getString(8));//Régime alimentaire
+				            }
+
+				         } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
+				             System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message
+				             e.printStackTrace();
+				         
+				         }; 
+				   }
+			}); 
 
 	}
 }

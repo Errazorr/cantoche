@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+
 import org.eclipse.swt.widgets.Label;
 
 public class cantine_etudiant {
@@ -30,6 +33,7 @@ public class cantine_etudiant {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -74,7 +78,7 @@ public class cantine_etudiant {
 		table = new Table(shlCantinetudiant, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		table.setBounds(50, 100, 781, 440);
+		table.setBounds(50, 100, 666, 440);
 		
 		//Colonne nom
 		TableColumn tblclmnNom = new TableColumn(table, SWT.CENTER);
@@ -104,17 +108,10 @@ public class cantine_etudiant {
 		
 		//Colonne régime
 		TableColumn tblclmnRégime = new TableColumn(table, SWT.NONE);
-		tblclmnRégime.setText("R\u00E9gime");
-		tblclmnRégime.setWidth(135);
+		tblclmnRégime.setText("R\u00E9gime alimentaire");
+		tblclmnRégime.setWidth(180);
 		
-		//Colonne régime alimentaire
-		TableColumn tblclmnRégimeAlimentaire = new TableColumn(table, SWT.NONE);
-		tblclmnRégimeAlimentaire.setWidth(160);
-		tblclmnRégimeAlimentaire.setText("R\u00E9gime alimentaire");
 		
-		//Ligne blanche pour laisser un espace
-		TableItem tableItem = new TableItem(table, SWT.NONE);
-		tableItem.setText("");
 		
 		//Bouton pour trier par nom
 		Button btnTrinom = new Button(shlCantinetudiant, SWT.NONE);
@@ -131,31 +128,122 @@ public class cantine_etudiant {
 		lblTotal.setBounds(693, 583, 209, 28);
 		lblTotal.setText("Total du mois :");
 		
+		Button btnRetour = new Button(shlCantinetudiant, SWT.NONE);
+		btnRetour.setText("Retour");
+		btnRetour.setBounds(505, 43, 148, 35);
+		
 		//Connexion à la bdd
 		String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String user="root";
         String password="";
         try {
-             Connection cnx = DriverManager.getConnection(url, user, password);
-             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
-             
-             //On remplit une ligne du tableau
-            TableItem tableItem_1 = new TableItem(table, SWT.NONE);
-     		tableItem_1.setText(0, "Goncalves");
-     		tableItem_1.setText(1, "Nathan");
-     		tableItem_1.setText(2, "BTS");
-     		tableItem_1.setText(3, "Non");
-     		tableItem_1.setText(4, "");
-     		tableItem_1.setText(5, "");
-     		tableItem_1.setText(6, "");
-             
+            Connection cnx = DriverManager.getConnection(url, user, password);
+            Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
+            
+            while(result.next()) {
+            	//On remplit une ligne du tableau
+            	TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+            	tableItem_1.setText(0, result.getString(2));//Nom
+            	tableItem_1.setText(1, result.getString(3));//Prénom
+            	tableItem_1.setText(2, result.getString(5));//Classe
+            	tableItem_1.setText(3, result.getString(6));//Demi-pensionnaire
+            	tableItem_1.setText(4, result.getString(7));//Jours
+            	tableItem_1.setText(5, result.getString(8));//Régime alimentaire
+            }
 
          } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
              System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message
              e.printStackTrace();
          
          }; 
+         
+         btnAjout.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   shlCantinetudiant.close();
+				   Ajout_eleve.main(null);
+			   }
+		}); 
+         
+         btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   shlCantinetudiant.close();
+				   modif_eleve.main(null);
+			   }
+		}); 
+         
+         btnSuppr.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   shlCantinetudiant.close();
+				   Suppr_eleve.main(null);
+			   }
+		}); 
+         
+         btnTrinom.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton Trier par nom
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   table.removeAll();
+				   try {
+			            Connection cnx = DriverManager.getConnection(url, user, password);
+			            Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			            //On affiche les eleves dans l'ordre aplphabétique
+			            ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve' order by nom asc");
+			            
+			            while(result.next()) {
+			            	//On remplit les ligne du tableau
+			            	TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+			            	tableItem_1.setText(0, result.getString(2));//Nom
+			            	tableItem_1.setText(1, result.getString(3));//Prénom
+			            	tableItem_1.setText(2, result.getString(5));//Classe
+			            	tableItem_1.setText(3, result.getString(6));//Demi-pensionnaire
+			            	tableItem_1.setText(4, result.getString(7));//Jours
+			            	tableItem_1.setText(5, result.getString(8));//Régime alimentaire
+			            }
+
+			         } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
+			             System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message
+			             e.printStackTrace();
+			         
+			         }; 
+			   }
+		}); 
+         
+         btnTriclasse.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton Trier par nom
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   table.removeAll();
+				   try {
+			            Connection cnx = DriverManager.getConnection(url, user, password);
+			            Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			            //On affiche les eleves dans l'ordre aplphabétique
+			            ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve' order by classe");
+			            
+			            while(result.next()) {
+			            	//On remplit les ligne du tableau
+			            	TableItem tableItem_1 = new TableItem(table, SWT.NONE);
+			            	tableItem_1.setText(0, result.getString(2));//Nom
+			            	tableItem_1.setText(1, result.getString(3));//Prénom
+			            	tableItem_1.setText(2, result.getString(5));//Classe
+			            	tableItem_1.setText(3, result.getString(6));//Demi-pensionnaire
+			            	tableItem_1.setText(4, result.getString(7));//Jours
+			            	tableItem_1.setText(5, result.getString(8));//Régime alimentaire
+			            }
+
+			         } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
+			             System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message
+			             e.printStackTrace();
+			         
+			         }; 
+			   }
+		}); 
 
 	}
 }
