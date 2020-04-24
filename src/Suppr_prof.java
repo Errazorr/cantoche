@@ -47,9 +47,9 @@ public class Suppr_prof {
 		Prenom.setBounds(247, 149, 131, 31);
 		
 		//Bouton de validation
-		Button btnCo = new Button(Supprimer, SWT.NONE);
-		btnCo.setBounds(122, 226, 113, 35);
-		btnCo.setText("Supprimer");
+		Button btnSupp = new Button(Supprimer, SWT.NONE);
+		btnSupp.setBounds(122, 226, 113, 35);
+		btnSupp.setText("Supprimer");
 		
 		//Label d'erreur
 		Label lblErreur = new Label(Supprimer, SWT.NONE);
@@ -61,6 +61,47 @@ public class Suppr_prof {
 		Button btnAnnuler = new Button(Supprimer, SWT.NONE);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(310, 226, 113, 35);
+		
+		btnSupp.addSelectionListener(new SelectionAdapter() {
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   
+				   //Connexion à la bdd
+				   	String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			        String user="root";
+			        String password="";
+			        try {
+			             Connection cnx = DriverManager.getConnection(url, user, password);
+			             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			             //On cherche si le compte existe grâce au nom et au prénom
+			             ResultSet rs = stm.executeQuery("select * from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='prof'");
+
+			             if(rs.next()){ //Si il existe
+			            	 Statement stmt = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			            	 stmt.executeUpdate("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='prof'");
+			            	 lblErreur.setText("Professeur supprimé"); //On affiche le texte
+			             }
+			             else { //Sinon
+			                 lblErreur.setText("Professeur introuvable ou inexistant"); //On affiche le texte
+			             }
+			             
+			         } catch (SQLException e) { //S'il y a un problème lors de la connexion à la bdd
+			             System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le texte
+			             e.printStackTrace();
+			         
+			};  
+			   }
+		});
+		
+		btnAnnuler.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton vider
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
+				   //Suppr_prof.close();
+				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+			   }
+		});
 		
 		//Affichage de la fenêtre
 		Supprimer.open();
