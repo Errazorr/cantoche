@@ -27,77 +27,77 @@ public class modif_prof {
 	public static void main(String[] args) {
 		//Affichage de la page de connexion
 		Display display = Display.getDefault();
-		Shell Supprimer = new Shell();
-		Supprimer.setSize(714, 530); //Taille de la fenêtre
-		Supprimer.setText("Modifier un professeur"); //Titre de la fenêtre
+		Shell Modifier = new Shell();
+		Modifier.setSize(714, 530); //Taille de la fenêtre
+		Modifier.setText("Modifier un professeur"); //Titre de la fenêtre
 		
 		//Label nom
-		Label lblNom = new Label(Supprimer, SWT.NONE);
+		Label lblNom = new Label(Modifier, SWT.NONE);
 		lblNom.setBounds(176, 95, 45, 25);
 		lblNom.setText("Nom :");
 		
 		//Label prenom
-		Label lblPrenom = new Label(Supprimer, SWT.NONE);
+		Label lblPrenom = new Label(Modifier, SWT.NONE);
 		lblPrenom.setBounds(157, 152, 64, 25);
 		lblPrenom.setText("Pr\u00E9nom :");
 		
 		//Texte nom
-		Nom = new Text(Supprimer, SWT.BORDER);
+		Nom = new Text(Modifier, SWT.BORDER);
 		Nom.setBounds(247, 92, 131, 31);
 		
 		//Texte prenom
-		Prenom = new Text(Supprimer, SWT.BORDER);
+		Prenom = new Text(Modifier, SWT.BORDER);
 		Prenom.setBounds(247, 149, 131, 31);
 		
 		//Bouton de validation
-		Button btnValider = new Button(Supprimer, SWT.NONE);
+		Button btnValider = new Button(Modifier, SWT.NONE);
 		btnValider.setEnabled(false);
 		btnValider.setBounds(487, 203, 113, 35);
 		btnValider.setText("Valider");
 		
 		//Label d'erreur
-		Label lblErreur = new Label(Supprimer, SWT.NONE);
+		Label lblErreur = new Label(Modifier, SWT.NONE);
 		lblErreur.setAlignment(SWT.CENTER);
 		lblErreur.setBounds(122, 33, 301, 20);
 		lblErreur.setText("");
 		
 		//Bouton d'annulation
-		Button btnAnnuler = new Button(Supprimer, SWT.NONE);
+		Button btnAnnuler = new Button(Modifier, SWT.NONE);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(487, 263, 113, 35);
 		
 		//Texte dp
-		DP = new Text(Supprimer, SWT.BORDER);
+		DP = new Text(Modifier, SWT.BORDER);
 		DP.setEnabled(false);
 		DP.setBounds(247, 207, 131, 31);
 		
 		//Texte jours
-		Jours = new Text(Supprimer, SWT.BORDER);
+		Jours = new Text(Modifier, SWT.BORDER);
 		Jours.setEnabled(false);
 		Jours.setBounds(247, 263, 131, 31);
 		
 		//Texte regime
-		Regime = new Text(Supprimer, SWT.BORDER);
+		Regime = new Text(Modifier, SWT.BORDER);
 		Regime.setEnabled(false);
 		Regime.setBounds(247, 323, 131, 31);
 		
 		//Label dp
-		Label lblDP = new Label(Supprimer, SWT.NONE);
+		Label lblDP = new Label(Modifier, SWT.NONE);
 		lblDP.setText("Demi-pensionnaire :");
 		lblDP.setBounds(78, 210, 143, 25);
 		
 		//Label jours
-		Label lblJours = new Label(Supprimer, SWT.NONE);
+		Label lblJours = new Label(Modifier, SWT.NONE);
 		lblJours.setText("Jours :");
 		lblJours.setBounds(157, 269, 64, 25);
 		
 		//Label regime
-		Label lblRgimeAlimentaire = new Label(Supprimer, SWT.NONE);
+		Label lblRgimeAlimentaire = new Label(Modifier, SWT.NONE);
 		lblRgimeAlimentaire.setText("R\u00E9gime alimentaire :");
 		lblRgimeAlimentaire.setBounds(78, 329, 143, 25);
 		
 		//Bouton pour modifier (choisir le professeur à modifier)
-		Button btnModif = new Button(Supprimer, SWT.NONE);
+		Button btnModif = new Button(Modifier, SWT.NONE);
 		btnModif.setText("Modifier");
 		btnModif.setBounds(487, 142, 113, 35);
 		
@@ -161,16 +161,16 @@ public class modif_prof {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
-				   //Suppr_eleve.close();
+				   Modifier.close();
 				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
 			   }
 		});
 
 		
 		//Affichage de la fenêtre
-		Supprimer.open();
-		Supprimer.layout();
-		while (!Supprimer.isDisposed()) {
+		Modifier.open();
+		Modifier.layout();
+		while (!Modifier.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
