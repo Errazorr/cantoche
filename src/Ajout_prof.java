@@ -84,11 +84,16 @@ public class Ajout_prof {
 		//Bouton pour vider les cases
 		Button btnVider = new Button(Ajout_prof, SWT.NONE);
 		btnVider.setText("Vider");
-		btnVider.setBounds(540, 235, 113, 35);
+		btnVider.setBounds(540, 192, 113, 35);
 		
 		//Label pour afficher un message d'erreur
 		Label lblErreur = new Label(Ajout_prof, SWT.NONE);
 		lblErreur.setBounds(540, 321, 256, 20);
+		
+		//Bouton pour revenir sur la page d'accueil
+		Button btnRetour = new Button(Ajout_prof, SWT.NONE);
+		btnRetour.setText("Retour");
+		btnRetour.setBounds(540, 270, 113, 35);
 		
 		btnAjouter.addSelectionListener(new SelectionAdapter() {
 			 
@@ -139,6 +144,16 @@ public class Ajout_prof {
 	            	textRegime.setText("");
 			   }
 		});
+		
+		btnRetour.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { 
+				   Ajout_prof.close(); //On ferme la page d'accueil
+				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+			   }
+		});
+
 
 		//Affichage  de la page
 		Ajout_prof.open();

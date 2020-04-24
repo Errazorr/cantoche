@@ -85,11 +85,11 @@ public class Ajout_eleve {
 		//Bouton pour vider les cases
 		Button btnVider = new Button(Ajout_eleve, SWT.NONE);
 		btnVider.setText("Vider");
-		btnVider.setBounds(540, 235, 113, 35);
+		btnVider.setBounds(540, 195, 113, 35);
 		
 		//Label pour afficher un message d'erreur
 		Label lblErreur = new Label(Ajout_eleve, SWT.NONE);
-		lblErreur.setBounds(540, 321, 256, 20);
+		lblErreur.setBounds(540, 342, 256, 20);
 		
 		//Label classe
 		Label lblClasse = new Label(Ajout_eleve, SWT.NONE);
@@ -99,6 +99,11 @@ public class Ajout_eleve {
 		//texte classe
 		textClasse = new Text(Ajout_eleve, SWT.BORDER);
 		textClasse.setBounds(292, 159, 131, 31);
+		
+		//Bouton pour revenir sur la page d'accueil
+		Button btnRetour = new Button(Ajout_eleve, SWT.NONE);
+		btnRetour.setText("Retour");
+		btnRetour.setBounds(540, 270, 113, 35);
 		
 		btnAjouter.addSelectionListener(new SelectionAdapter() {
 			 
@@ -149,6 +154,15 @@ public class Ajout_eleve {
 	            	textDP.setText("");
 	            	textJours.setText("");
 	            	textRegime.setText("");
+			   }
+		});
+		
+		btnRetour.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) {
+				   Ajout_eleve.close(); //On ferme la page d'accueil
+				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
 			   }
 		});
 
