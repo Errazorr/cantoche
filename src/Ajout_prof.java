@@ -148,8 +148,8 @@ public class Ajout_prof {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { 
-				   Ajout_prof.close(); //On ferme la page d'accueil
-				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+				   Ajout_prof.close(); //On ferme la page
+				   Accueil.main(args); //On ouvre la page accueil
 			   }
 		});
 

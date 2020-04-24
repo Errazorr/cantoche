@@ -25,7 +25,7 @@ public class modif_prof {
 
 	
 	public static void main(String[] args) {
-		//Affichage de la page de connexion
+		//Affichage de la page
 		Display display = Display.getDefault();
 		Shell Modifier = new Shell();
 		Modifier.setSize(714, 530); //Taille de la fenêtre
@@ -101,7 +101,7 @@ public class modif_prof {
 		btnModif.setText("Modifier");
 		btnModif.setBounds(487, 142, 113, 35);
 		
-		btnModif.addSelectionListener(new SelectionAdapter() {
+		btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton modifier
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
@@ -161,8 +161,8 @@ public class modif_prof {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
-				   Modifier.close();
-				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+				   Modifier.close(); //On ferme la page
+				   Accueil.main(args); //On ouvre la page accueil
 			   }
 		});
 

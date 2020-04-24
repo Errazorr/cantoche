@@ -112,7 +112,7 @@ public class modif_eleve {
 		btnModif.setText("Modifier");
 		btnModif.setBounds(487, 142, 113, 35);
 		
-		btnModif.addSelectionListener(new SelectionAdapter() {
+		btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton modifier
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
@@ -173,8 +173,8 @@ public class modif_eleve {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
-				   Modifier.close();
-				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+				   Modifier.close(); //On ferme la page
+				   Accueil.main(args); //On ouvre la page accueil
 			   }
 		});
 

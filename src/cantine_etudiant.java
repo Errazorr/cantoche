@@ -158,21 +158,21 @@ public class cantine_etudiant {
          
          }; 
          
-         btnAjout.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+         btnAjout.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton ajouter
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { 
-				   shlCantinetudiant.close();
-				   Ajout_eleve.main(null);
+				   shlCantinetudiant.close(); //On ferme la fenetre
+				   Ajout_eleve.main(null); //On ouvre la fenetre pour ajouter un eleve
 			   }
 		}); 
          
-         btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton retour
+         btnModif.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton modifier
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { 
-				   shlCantinetudiant.close();
-				   modif_eleve.main(null);
+				   shlCantinetudiant.close(); //On ferme la fenetre
+				   modif_eleve.main(null); //On ouvre la fenetre pour modifier un eleve
 			   }
 		}); 
          
@@ -180,8 +180,8 @@ public class cantine_etudiant {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { 
-				   shlCantinetudiant.close();
-				   Suppr_eleve.main(null);
+				   shlCantinetudiant.close(); //On ferme la fenetre
+				   Suppr_eleve.main(null); //On ouvre la fenetre pour asupprimer un eleve
 			   }
 		}); 
          

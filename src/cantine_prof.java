@@ -135,7 +135,7 @@ public class cantine_prof {
 		             
 		         while(result.next()) {
 		        	 
-			         if(result.getString(6) == "non") {
+			         if(result.getString(6).equals("non")) {
 			        	 prix_mensuel = 0;
 			         }
 			         
@@ -169,8 +169,8 @@ public class cantine_prof {
 				 
 				   @Override
 				   public void widgetSelected(SelectionEvent arg0) { 
-					   shlCantineprof.close();
-					   Ajout_prof.main(null);
+					   shlCantineprof.close(); //On ferme la fenetre
+					   Ajout_prof.main(null); //On ouvre la fenetre pour ajouter un professeur
 				   }
 			}); 
 	         
@@ -178,8 +178,8 @@ public class cantine_prof {
 				 
 				   @Override
 				   public void widgetSelected(SelectionEvent arg0) { 
-					   shlCantineprof.close();
-					   modif_prof.main(null);
+					   shlCantineprof.close(); //On ferme la fenetre
+					   modif_prof.main(null); //On ouvre la fenetre pour modifier un professeur
 				   }
 			}); 
 	         
@@ -187,8 +187,8 @@ public class cantine_prof {
 				 
 				   @Override
 				   public void widgetSelected(SelectionEvent arg0) { 
-					   shlCantineprof.close();
-					   Suppr_prof.main(null);
+					   shlCantineprof.close(); //On ferme la fenetre
+					   Suppr_prof.main(null); //On ouvre la fenetre pour supprimer un professeur
 				   }
 			}); 
 	         
@@ -196,8 +196,8 @@ public class cantine_prof {
 				 
 				   @Override
 				   public void widgetSelected(SelectionEvent arg0) { 
-					   shlCantineprof.close();
-					   Accueil.main(null);
+					   shlCantineprof.close(); //On ferme la fenetre
+					   Accueil.main(null); //On ouvre la fenetre accueil
 				   }
 			}); 
 	         

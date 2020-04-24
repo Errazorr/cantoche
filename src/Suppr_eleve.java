@@ -62,7 +62,7 @@ public class Suppr_eleve {
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(310, 226, 113, 35);
 		
-		btnSupp.addSelectionListener(new SelectionAdapter() {
+		btnSupp.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton supprimer
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
@@ -98,8 +98,8 @@ public class Suppr_eleve {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
-				   Supprimer.close();
-				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+				   Supprimer.close(); //On ferme la page
+				   Accueil.main(args); //On ouvre la page accueil
 			   }
 		});
 

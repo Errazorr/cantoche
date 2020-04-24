@@ -161,8 +161,8 @@ public class Ajout_eleve {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) {
-				   Ajout_eleve.close(); //On ferme la page d'accueil
-				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+				   Ajout_eleve.close(); //On ferme la page 
+				   Accueil.main(args); //On ouvre la page accueil
 			   }
 		});
 
