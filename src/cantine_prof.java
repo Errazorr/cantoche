@@ -236,6 +236,15 @@ public class cantine_prof {
 				         }; 
 				   }
 			}); 
+	         
+	         btnRetour.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton vider
+				 
+				   @Override
+				   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
+					   shlCantineprof.close(); //On ferme la page
+					   Accueil.main(null); //On ouvre la page accueil
+				   }
+			});
 
 	}
 }
