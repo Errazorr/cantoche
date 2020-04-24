@@ -59,11 +59,6 @@ public class Ajout_prof {
 		lblDemipensionnaire.setText("Demi-pensionnaire :");
 		lblDemipensionnaire.setBounds(122, 182, 141, 25);
 		
-		//label jours
-		Label lblQuelsJours = new Label(Ajout_prof, SWT.NONE);
-		lblQuelsJours.setText("Quels jours :");
-		lblQuelsJours.setBounds(178, 245, 85, 25);
-		
 		//label régime alimentaire
 		Label lblRgimeAlimentaire = new Label(Ajout_prof, SWT.NONE);
 		lblRgimeAlimentaire.setText("R\u00E9gime alimentaire :");
@@ -94,6 +89,10 @@ public class Ajout_prof {
 		Button btnRetour = new Button(Ajout_prof, SWT.NONE);
 		btnRetour.setText("Retour");
 		btnRetour.setBounds(540, 270, 113, 35);
+		
+		Label lblQuelsJours = new Label(Ajout_prof, SWT.NONE);
+		lblQuelsJours.setText("Quels jours (L,Ma,Me,J,V) :");
+		lblQuelsJours.setBounds(88, 242, 175, 25);
 		
 		btnAjouter.addSelectionListener(new SelectionAdapter() {
 			 

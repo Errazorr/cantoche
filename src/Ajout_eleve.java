@@ -62,8 +62,8 @@ public class Ajout_eleve {
 		
 		//label jours
 		Label lblQuelsJours = new Label(Ajout_eleve, SWT.NONE);
-		lblQuelsJours.setText("Quels jours :");
-		lblQuelsJours.setBounds(177, 277, 85, 25);
+		lblQuelsJours.setText("Quels jours (L,Ma,Me,J,V) :");
+		lblQuelsJours.setBounds(87, 277, 175, 25);
 		
 		//label régime alimentaire
 		Label lblRgimeAlimentaire = new Label(Ajout_eleve, SWT.NONE);
