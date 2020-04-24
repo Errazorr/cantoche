@@ -98,7 +98,7 @@ public class Suppr_prof {
 			 
 			   @Override
 			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
-				   //Suppr_prof.close();
+				   Supprimer.close();
 				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
 			   }
 		});
