@@ -21,6 +21,7 @@ public class cantine_etudiant {
 
 	protected Shell shlCantinetudiant;
 	private Table table;
+	private int prix_mensuel;
 
 	/**
 	 * Launch the application.
@@ -78,7 +79,7 @@ public class cantine_etudiant {
 		table = new Table(shlCantinetudiant, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		table.setBounds(50, 100, 666, 440);
+		table.setBounds(50, 100, 767, 440);
 		
 		//Colonne nom
 		TableColumn tblclmnNom = new TableColumn(table, SWT.CENTER);
@@ -111,7 +112,10 @@ public class cantine_etudiant {
 		tblclmnRégime.setText("R\u00E9gime alimentaire");
 		tblclmnRégime.setWidth(180);
 		
-		
+		//Colonne prix mensuel
+		TableColumn tblclmnPrixMensuel = new TableColumn(table, SWT.NONE);
+		tblclmnPrixMensuel.setWidth(100);
+		tblclmnPrixMensuel.setText("Prix mensuel");
 		
 		//Bouton pour trier par nom
 		Button btnTrinom = new Button(shlCantinetudiant, SWT.NONE);
@@ -125,12 +129,15 @@ public class cantine_etudiant {
 		
 		//Label pour afficher le prix total du mois à payer
 		Label lblTotal = new Label(shlCantinetudiant, SWT.NONE);
-		lblTotal.setBounds(693, 583, 209, 28);
+		lblTotal.setBounds(693, 583, 103, 28);
 		lblTotal.setText("Total du mois :");
 		
 		Button btnRetour = new Button(shlCantinetudiant, SWT.NONE);
 		btnRetour.setText("Retour");
 		btnRetour.setBounds(505, 43, 148, 35);
+		
+		Label lblTotalMois = new Label(shlCantinetudiant, SWT.NONE);
+		lblTotalMois.setBounds(802, 583, 70, 20);
 		
 		//Connexion à la bdd
 		String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -141,7 +148,21 @@ public class cantine_etudiant {
             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet result = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
             
+            
             while(result.next()) {
+            	
+            	if(result.getString(6).equals("non")) {
+		        	 prix_mensuel = 0;
+		         }
+		         
+		         else {
+		        	 final String separateur = ",";
+			         String jours = result.getString(7);
+			         
+			         String nbjours[] = jours.split(separateur);
+		        	 prix_mensuel = nbjours.length * 6 * 4;
+		         }
+            	
             	//On remplit une ligne du tableau
             	TableItem tableItem_1 = new TableItem(table, SWT.NONE);
             	tableItem_1.setText(0, result.getString(2));//Nom
@@ -150,7 +171,13 @@ public class cantine_etudiant {
             	tableItem_1.setText(3, result.getString(6));//Demi-pensionnaire
             	tableItem_1.setText(4, result.getString(7));//Jours
             	tableItem_1.setText(5, result.getString(8));//Régime alimentaire
+            	tableItem_1.setText(6, String.valueOf(prix_mensuel));
+            	
             }
+            
+            ResultSet prix = stm.executeQuery("SELECT SUM(prix_mensuel) FROM compte WHERE role = 'eleve'");
+            prix.next();
+            lblTotalMois.setText(prix.getString(1)+" €");
 
          } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
              System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message

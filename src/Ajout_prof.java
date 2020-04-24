@@ -22,6 +22,7 @@ public class Ajout_prof {
 	private static Text textDP;
 	private static Text textJours;
 	private static Text textRegime;
+	private static int prix_mensuel;
 
 	
 	public static void main(String[] args) {
@@ -112,13 +113,19 @@ public class Ajout_prof {
 			            	 lblErreur.setText("Professeur déjà existant"); //On affiche le message d'erreur
 			             }
 			             else { //Sinon
+			            	 final String separateur = ",";
+					         String jours = textJours.getText();
+					         
+					         String nbjours[] = jours.split(separateur);
+				        	 prix_mensuel = nbjours.length * 6 * 4;
 			            	//On enregistre les données qu'on a entré dans la bdd
-			            	 PreparedStatement stmt = cnx.prepareStatement("INSERT INTO compte(nom, prenom, DP, jours, regime, role) VALUES (?, ?, ?, ?, ?, 'prof')");
+			            	 PreparedStatement stmt = cnx.prepareStatement("INSERT INTO compte(nom, prenom, DP, jours, regime, role, prix_mensuel) VALUES (?, ?, ?, ?, ?, 'prof',?)");
 			            	 stmt.setString(1, textNom.getText());
 			            	 stmt.setString(2, textPrenom.getText());
 			            	 stmt.setString(3, textDP.getText());
 			            	 stmt.setString(4, textJours.getText());
 			            	 stmt.setString(5, textRegime.getText());
+			            	 stmt.setString(7, String.valueOf(prix_mensuel));
 
 			            	 stmt.executeUpdate();
 			            	 lblErreur.setText("Professeur ajouté");

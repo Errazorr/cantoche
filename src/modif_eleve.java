@@ -23,6 +23,7 @@ public class modif_eleve {
 	private static Text DP;
 	private static Text Jours;
 	private static Text Regime;
+	private static int prix_mensuel;
 
 	
 	public static void main(String[] args) {
@@ -139,11 +140,17 @@ public class modif_eleve {
 			      			   @Override
 			      			   public void widgetSelected(SelectionEvent arg0) {
 			      				 try {
+			      					final String separateur = ",";
+							         String jours = Jours.getText();
+							         
+							         String nbjours[] = jours.split(separateur);
+						        	 prix_mensuel = nbjours.length * 6 * 4;
+						        	 
 			      					 //Connexion à la bdd
 						             Connection cnx = DriverManager.getConnection(url, user, password);
 						             Statement stmt = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 						             //On modifie les données de l'élèves avec les données rentrées
-			      			   	 	stmt.executeUpdate("update compte set classe  = '"+Classe.getText()+"', DP  = '"+DP.getText()+"', jours  = '"+Jours.getText()+"', regime  = '"+Regime.getText()+"' where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
+			      			   	 	stmt.executeUpdate("update compte set classe  = '"+Classe.getText()+"', DP  = '"+DP.getText()+"', jours  = '"+Jours.getText()+"', regime  = '"+Regime.getText()+"', prix_mensuel = '"+String.valueOf(prix_mensuel)+"' where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
 			      			   	 	lblErreur.setText("Eleve modifié"); //On affiche le texte
 			      			   	 	btnAnnuler.setText("Retour");//On change le texte du bouton annuler
 			      				 }

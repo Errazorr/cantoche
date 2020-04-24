@@ -114,13 +114,16 @@ public class cantine_prof {
 		btnTrinom.setText("Trier par nom");
 		
 		//Label pour afficher le prix total du mois à payer
-		Label lblTotalDuMois = new Label(shlCantineprof, SWT.NONE);
-		lblTotalDuMois.setBounds(693, 583, 209, 28);
-		lblTotalDuMois.setText("Total du mois :");
+		Label lblTotal = new Label(shlCantineprof, SWT.NONE);
+		lblTotal.setBounds(693, 583, 103, 28);
+		lblTotal.setText("Total du mois :");
 		
 		Button btnRetour = new Button(shlCantineprof, SWT.NONE);
 		btnRetour.setText("Retour");
 		btnRetour.setBounds(284, 43, 148, 35);
+		
+		Label lblTotalMois = new Label(shlCantineprof, SWT.NONE);
+		lblTotalMois.setBounds(802, 583, 103, 28);
 		
 		//Connexion à la bdd
 			String url="jdbc:mysql://localhost/cantine?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -158,6 +161,10 @@ public class cantine_prof {
 		            	
 		            }
 		             
+		         ResultSet prix = stm.executeQuery("SELECT SUM(prix_mensuel) FROM compte WHERE role = 'prof'");
+		         prix.next();
+		         lblTotalMois.setText(prix.getString(1)+" €");
+
 
 		     } catch (SQLException e) { //Si il y a une erreur de connexion à la bdd
 		    	 System.out.println("Une erreur est survenue lors de la connexion à la base de données"); //On affiche le  message

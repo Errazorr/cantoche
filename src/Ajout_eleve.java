@@ -23,6 +23,7 @@ public class Ajout_eleve {
 	private static Text textJours;
 	private static Text textRegime;
 	private static Text textClasse;
+	private static int prix_mensuel;
 
 	
 	public static void main(String[] args) {
@@ -123,14 +124,21 @@ public class Ajout_eleve {
 			            	 lblErreur.setText("Elève déjà existant"); //On affiche le message d'erreur
 			             }
 			             else { //Sinon
-			            	 //On enregistre les données qu'on a entré dans la bdd
-			            	 PreparedStatement stmt = cnx.prepareStatement("INSERT INTO compte(nom, prenom, classe, DP, jours, regime, role) VALUES (?, ?, ?, ?, ?, ?, 'eleve')");
+			            	 final String separateur = ",";
+					         String jours = textJours.getText();
+					         
+					         String nbjours[] = jours.split(separateur);
+				        	 prix_mensuel = nbjours.length * 6 * 4;
+			            	 
+			            	//On enregistre les données qu'on a entré dans la bdd
+			            	 PreparedStatement stmt = cnx.prepareStatement("INSERT INTO compte(nom, prenom, classe, DP, jours, regime, role, prix_mensuel) VALUES (?, ?, ?, ?, ?, ?, 'eleve', ?)");
 			            	 stmt.setString(1, textNom.getText());
 			            	 stmt.setString(2, textPrenom.getText());
 			            	 stmt.setString(3, textClasse.getText());
 			            	 stmt.setString(4, textDP.getText());
 			            	 stmt.setString(5, textJours.getText());
 			            	 stmt.setString(6, textRegime.getText());
+			            	 stmt.setString(7, String.valueOf(prix_mensuel));
 
 			            	 stmt.executeUpdate();
 			            	 lblErreur.setText("Elève ajouté"); //On affiche le texte
