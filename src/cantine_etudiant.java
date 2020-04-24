@@ -138,7 +138,7 @@ public class cantine_etudiant {
         try {
              Connection cnx = DriverManager.getConnection(url, user, password);
              Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet rs = stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'"); //On récupère les données où le role est "eleve"
+             stm.executeQuery("SELECT * FROM compte WHERE role = 'eleve'");
              
              //On remplit une ligne du tableau
             TableItem tableItem_1 = new TableItem(table, SWT.NONE);
