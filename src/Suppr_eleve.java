@@ -74,12 +74,12 @@ public class Suppr_eleve {
 			        try {
 			             Connection cnx = DriverManager.getConnection(url, user, password);
 			             Statement stm = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			             //On cherche si le compte existe grâce à l'identifiant et le mot de passe
+			             //On cherche si le compte existe grâce au nom et au prénom
 			             ResultSet rs = stm.executeQuery("select * from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
 
 			             if(rs.next()){ //Si il existe
 			            	 Statement stmt = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			            	 int result = stmt.executeUpdate("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
+			            	 stmt.executeUpdate("delete from compte where nom ='"+Nom.getText()+"' and prenom ='"+Prenom.getText()+"' and role='eleve'");
 			            	 lblErreur.setText("Eleve supprimé"); //On affiche le texte
 			             }
 			             else { //Sinon
@@ -93,6 +93,16 @@ public class Suppr_eleve {
 			};  
 			   }
 		});
+		
+		btnAnnuler.addSelectionListener(new SelectionAdapter() { //Quand on appui sur le bouton vider
+			 
+			   @Override
+			   public void widgetSelected(SelectionEvent arg0) { //On vide toutes les zones de texte
+				   //Suppr_eleve.close();
+				   Accueil.main(args); //On ouvre la page pour afficher les professeurs
+			   }
+		});
+
 		
 		//Affichage de la fenêtre
 		Supprimer.open();
