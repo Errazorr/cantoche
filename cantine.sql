@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 01 avr. 2020 à 15:02
+-- Généré le :  sam. 25 avr. 2020 à 14:05
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `cantine`
 --
+CREATE DATABASE IF NOT EXISTS `cantine` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `cantine`;
 
 -- --------------------------------------------------------
 
@@ -36,24 +38,31 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `identifiant` varchar(50) DEFAULT NULL,
   `classe` varchar(20) DEFAULT NULL,
   `DP` char(3) NOT NULL,
-  `jours` varchar(11) DEFAULT NULL,
-  `regime` varchar(20) DEFAULT NULL,
+  `jours` varchar(11) NOT NULL,
+  `regime` varchar(20) NOT NULL,
   `mdp` varchar(50) DEFAULT NULL,
   `role` varchar(5) NOT NULL,
+  `prix_mensuel` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `compte`
 --
 
-INSERT INTO `compte` (`id`, `nom`, `prenom`, `identifiant`, `classe`, `DP`, `jours`, `regime`, `mdp`, `role`) VALUES
-(1, 'Goncalves', 'Nathan', 'test', NULL, 'non', NULL, NULL, 'test', 'admin'),
-(2, 'Guo', 'Loïc', NULL, NULL, 'non', NULL, NULL, NULL, 'prof'),
-(3, 'Aggoun', 'Adam', NULL, 'BTS SIO SLAM 1', 'oui', 'L,Ma', 'Pas de porc', NULL, 'eleve'),
-(5, 'Birba', 'Enzo', NULL, NULL, 'Oui', 'L,Ma,J', '', NULL, 'prof'),
-(6, 'Serva', 'Théo', NULL, 'STI2D', 'Oui', 'Lu,V', 'Vegan', NULL, 'eleve'),
-(7, 'a', 'z', NULL, 'e', 'oui', 'L', '', NULL, 'eleve');
+INSERT INTO `compte` (`id`, `nom`, `prenom`, `identifiant`, `classe`, `DP`, `jours`, `regime`, `mdp`, `role`, `prix_mensuel`) VALUES
+(1, 'Goncalves', 'Nathan', 'test', NULL, 'non', '', '', 'test', 'admin', 0),
+(2, 'Guo', 'Loïc', NULL, NULL, 'non', '', '', NULL, 'prof', 0),
+(3, 'Birba', 'Enzo', NULL, 'BTS SLAM 1', 'oui', 'L,Ma,Me', '', NULL, 'eleve', 72),
+(4, 'Aggoun', 'Adam', NULL, 'BTS SLAM 2', 'oui', 'L,Ma', 'Hallal', NULL, 'eleve', 48),
+(5, 'Serva', 'Théo', NULL, 'BTS SLAM 2', 'Oui', 'Me,V', '', NULL, 'eleve', 48),
+(6, 'Dauwe', 'Marc', NULL, 'BTS SLAM 1', 'oui', 'L,Ma,Me,J,V', '', NULL, 'eleve', 120),
+(7, 'Charles', 'Maxime', NULL, 'TSTI2D', 'oui', 'V', '', NULL, 'eleve', 24),
+(8, 'Remacle', 'Denis', NULL, 'BTS SLAM 2', 'non', '', '', NULL, 'eleve', 0),
+(10, 'Carmone', 'Alexandre', NULL, NULL, 'oui', 'L,Me', '', NULL, 'prof', 48),
+(12, 'Gobert', 'P', NULL, NULL, 'oui', 'V', 'Vegetarienne', NULL, 'prof', 24),
+(13, 'a', 'a', NULL, 'BTS', 'oui', 'L,Ma', '', NULL, 'eleve', 48),
+(14, 'z', 'z', NULL, 'BTS SISR', 'oui', 'L,Ma,Me', '', NULL, 'eleve', 72);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
